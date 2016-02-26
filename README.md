@@ -14,6 +14,9 @@ ex : hyderabad-1 => tdesk-hyderabad-1-db.firebaseio.com
      
 All the vehicles that needs to be monitored will open a url /tdesk/push that will stream their (lat, lng) to their respective database. For a logged in user a location will be mapped.
 
+tdesk/monitor :
+The monitor page will show the vehicles that are expected to arrive at a particular point. The basic view will just position the vehicles on the map. It can have any additional views on top of this view.
+
 
 
 
