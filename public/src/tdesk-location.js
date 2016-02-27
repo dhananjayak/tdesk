@@ -80,7 +80,7 @@ function PushDataToFireBase() {
     var vechicle = new tdesk.Vehicle(userConfig.track.loc, userConfig.userid, userConfig.vehicle.number);
     vechicle.position(latlang);
     console.log(latlang);
-    alert(latitude+","+longitude);
+    //alert(latitude+","+longitude);
    // alert(latitude + "," + longitude);
 
 }
