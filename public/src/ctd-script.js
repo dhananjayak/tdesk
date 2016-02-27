@@ -89,6 +89,7 @@ function initMap() {
 function initLocateVeh() {
 
     LocateCurrentVehicles(userConfig.track.lat, userConfig.track.lng, document.getElementById('divLocateVehicles'));
+    LocateCurrentVehicles(userConfig.track.lat, userConfig.track.lng, document.getElementById('divNearestVehicles'));
 
     // Closes the sidebar menu
     $("#menu-close").click(function (e) {
@@ -141,7 +142,7 @@ function init(lat, lng, placeHolderId) {
 }
 
 function LocateCurrentVehicles(lat, lng, vehiclelocations, mapElement) {
-
+    alert('hi');
     vehiclelocations = new Array();
 
     vehiclelocations.push(new Array(17.445800, 78.380928));
