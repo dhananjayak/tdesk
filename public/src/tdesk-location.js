@@ -105,13 +105,13 @@ function SetBaseLocation() {
 function DrawRouteForDriver(map, currentpos, array) {
 
     var request = {
-        origin: new google.maps.LatLng(17.3700,78.4800),
-       // origin: currentpos,
+        //origin: new google.maps.LatLng(17.3700,78.4800),
+        origin: currentpos,
         destination: new google.maps.LatLng(userConfig.track.lat, userConfig.track.lng),
         travelMode: google.maps.DirectionsTravelMode.DRIVING,
-       // waypoints: userConfig.inboundRoute
+        waypoints: userConfig.inboundRoute
       
-        waypoints: [{ location: "Rai Durg, Hyderabad", stopover: true },{location:"TOLI CHOWKI",stopover:true}]
+       // waypoints: [{ location: "Rai Durg, Hyderabad", stopover: true },{location:"TOLI CHOWKI",stopover:true}]
     };
 
 
