@@ -23,11 +23,9 @@ $(document).ready(function () {
         	});
         });
     });
-
-
 });
 
 $(document).on('click', '#spanLocateVeh', function () {
     var queryString = window.location.href.split('?')[1];
-    window.location.href = "locatevehicle.html?" + queryString;
+    window.location.href = "locate-vehicle.html?" + queryString;
 });
