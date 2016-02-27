@@ -164,9 +164,9 @@ function LocateCurrentVehicles(lat, lng, vehiclelocations, mapElement) {
 
 }
 
-function PointVehicle(lat, lng, map) {
+function PointVehicle(userInfo, map) {
     var marker = new google.maps.Marker({
-        position: new google.maps.LatLng(lat, lng),
+        position: new google.maps.LatLng(userInfo.lat, userInfo.lng),
         map: map,
         animation: google.maps.Animation.DROP,
         icon: '/img/bus-small.png'
@@ -179,10 +179,10 @@ function PointVehicle(lat, lng, map) {
         DrawRoute(map, currentPos, "");
     });
 
-    var eta = geteta(new google.maps.LatLng(lat, lng), new google.maps.LatLng(userConfig.track.lat, userConfig.track.lng));
+    var eta = geteta(new google.maps.LatLng(userInfo.lat, userInfo.lng), new google.maps.LatLng(userConfig.track.lat, userConfig.track.lng));
 
     var infowindow = new google.maps.InfoWindow({
-        content: InfoWindowContent('Samuel L Jackson', 'AP28 CX 3569', '9999999999', eta)
+        content: InfoWindowContent(userInfo.name, userInfo.vehicleNumber, '9999999999', eta)
     });
 
     marker.addListener('mouseover', function () {
