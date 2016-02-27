@@ -84,10 +84,8 @@ function initMap() {
 
 }
 
-function init(lat, lng){
+function init(lat, lng) {
     LoadMap(lat, lng, document.getElementById('mapPlaceholder'));
-
-    LocateCurrentVehicles();
 
     // Closes the sidebar menu
     $("#menu-close").click(function (e) {
@@ -101,22 +99,20 @@ function init(lat, lng){
         $("#sidebar-wrapper").toggleClass("active");
     });
 
-    // Scrolls to the selected menu item on the page
-    $(function () {
-        $('a[href*=#]:not([href=#])').click(function () {
-            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+    //// Scrolls to the selected menu item on the page
+    //$('a[href*=#]:not([href=#])').click(function () {
+    //    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
 
-                var target = $(this.hash);
-                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-                if (target.length) {
-                    $('html,body').animate({
-                        scrollTop: target.offset().top
-                    }, 1000);
-                    return false;
-                }
-            }
-        });
-    });
+    //        var target = $(this.hash);
+    //        target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+    //        if (target.length) {
+    //            $('html,body').animate({
+    //                scrollTop: target.offset().top
+    //            }, 1000);
+    //            return false;
+    //        }
+    //    }
+    //});
 
 
 
@@ -140,13 +136,14 @@ function init(lat, lng){
 
 $(document).ready(function () {
 
-    tdesk.config.user(tdesk.readQuery("id"), function(userConfig){
+    tdesk.config.user(tdesk.readQuery("id"), function (userConfig) {
         //console.log(value);
         window.userConfig = userConfig;
         init(userConfig.track.lat, userConfig.track.lng);
+        LocateCurrentVehicles(userConfig.track.lat, userConfig.track.lng);
     });
 
-    
+
 });
 
 function LocateCurrentVehicles(lat, lng, vehiclelocations) {
@@ -173,7 +170,7 @@ function PointVehicle(lat, lng, map) {
         position: new google.maps.LatLng(lat, lng),
         map: map,
         animation: google.maps.Animation.DROP,
-        icon: '/RandD/hackathon/img/bus-icon.png'
+        icon: '/img/bus-icon.png'
     });
 
     directionsDisplay.setMap(map);
@@ -181,6 +178,20 @@ function PointVehicle(lat, lng, map) {
     marker.addListener('click', function (event) {
         var currentPos = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())
         DrawRoute(map, currentPos, "");
+    });
+
+    var eta = geteta(new google.maps.LatLng(lat, lng), new google.maps.LatLng(userConfig.track.lat, userConfig.track.lng));
+
+    var infowindow = new google.maps.InfoWindow({
+        content: InfoWindowContent('Samuel L Jackson', 'AP28 CX 3569', '9999999999', eta)
+    });
+
+    marker.addListener('mouseover', function () {
+        infowindow.open(map, marker);
+    });
+
+    marker.addListener(marker, 'mouseout', function () {
+        infowindow.close();
     });
 
 }
@@ -275,4 +286,36 @@ function markCurrentLocation(map, latitude, longitude) {
 
     marker.setMap(map);
 
+}
+
+function InfoWindowContent(name, vehicle, contact, eta) {
+
+    return '<div class="row"><div class="col-md-12"><label>Name : ' + name + '</label></div></div><div class="row"><div class="col-md-12">' +
+        '<label>Vehicle Number : ' + vehicle + '</label>' +
+    '</div></div><div class="row">' +
+    '<div class="col-md-12"><label>Contact : ' + contact + '</label></div></div><div class="row"><div class="col-md-12"><label>ETA : ' + eta +
+        '</label></div></div>'
+
+}
+
+function geteta(source, dest) {
+    var eta = "";
+    var service = new google.maps.DistanceMatrixService();
+    service.getDistanceMatrix(
+      {
+          origins: [source],
+          destinations: [dest],
+          travelMode: google.maps.TravelMode.DRIVING,
+          transitOptions: {
+              departureTime: new Date(GetDepartureTime()),
+          },
+      }, callback);
+
+    function callback(response, status) {
+        eta = response.rows[0].elements[0].duration.text;
+    }
+}
+
+function GetDepartureTime() {
+    return new Date().getTime() / 1000;
 }
