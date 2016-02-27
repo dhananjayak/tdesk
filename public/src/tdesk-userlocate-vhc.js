@@ -30,3 +30,22 @@ $(document).on('click', '#spanUserLocVeh', function () {
     var queryString = window.location.href.split('?')[1];
     window.location.href = "userlocatecabs.html?" + queryString;
 });
+$(document).on('click', '#spanSOS', function () {
+PushSosData();
+    
+    var queryString = window.location.href.split('?')[1];
+    //window.location.href = "send";
+});
+
+function PushSosData()
+{
+    $.get('send',function(){})
+    .done(function()
+    {
+                alert("Notification Sent");
+     })
+        .fail(function(){
+            alert('something went wrong');
+        })
+      
+}
