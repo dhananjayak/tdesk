@@ -161,7 +161,7 @@ function PointVehicle(lat, lng, map) {
         position: new google.maps.LatLng(lat, lng),
         map: map,
         animation: google.maps.Animation.DROP,
-        icon: '/img/bus-icon.png'
+        icon: '/img/bus-small.png'
     });
 
     directionsDisplay.setMap(map);
