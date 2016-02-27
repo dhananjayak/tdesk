@@ -134,8 +134,8 @@ function getLatLong() {
     }
 }
 
-function init(lat, lng) {
-    return createMap(lat, lng, 'mapPlaceholder');
+function init(lat, lng, placeHolderId) {
+    return createMap(lat, lng, placeHolderId);
 }
 
 function LocateCurrentVehicles(lat, lng, vehiclelocations, mapElement) {
@@ -189,7 +189,7 @@ function PointVehicle(lat, lng, map) {
 }
 
 function createMap(lat, lng, placeHolderId) {
-    var mapElement = document.getElementById('mapPlaceholder');
+    var mapElement = document.getElementById(placeHolderId);
     
     var locationMap = CreateMapInstance(lat, lng, mapElement);
     

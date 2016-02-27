@@ -4,7 +4,7 @@ $(document).ready(function () {
 
         var vehiclePositions = {};
 
-        var map = init(userConfig.track.lat, userConfig.track.lng);
+        var map = init(userConfig.track.lat, userConfig.track.lng, 'mapPlaceholder');
 
         tdesk.vehicles.all(userConfig.track.loc, function(response){
         	Object.keys(response).forEach(function(user){

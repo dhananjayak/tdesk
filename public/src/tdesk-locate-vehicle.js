@@ -1,14 +1,37 @@
  $(document).ready(function () {
         tdesk.config.user(tdesk.readQuery("id"), function (userConfig) {
+            var vehiclePositions = {};
+
             window.userConfig = userConfig;
 
-            initLocateVeh();
+            var map = init(userConfig.track.lat, userConfig.track.lng, 'map_locations');
+
+            tdesk.vehicles.all(userConfig.track.loc, function(response){
+                Object.keys(response).forEach(function(user){
+                    var usersLatLng = response[user];
+                
+                    console.log('points changed..');
+
+                    if (vehiclePositions[user]){
+                        vehiclePositions[user].setPosition({lat:usersLatLng.lat, lng:usersLatLng.lng});
+                    }
+                    else{
+                        vehiclePositions[user] =
+                            PointVehicle(usersLatLng.lat, usersLatLng.lng, map);    
+                    }
+            });
+        });
+
+            //initLocateVeh();
         });
 });
 
 function initLocateVeh() {
+    var map = init(userConfig.track.lat, userConfig.track.lng, 'map_locations');
 
-    LocateCurrentVehicles(userConfig.track.lat, userConfig.track.lng);
+
+
+    //LocateCurrentVehicles(userConfig.track.lat, userConfig.track.lng, map);
 
     // Closes the sidebar menu
     $("#menu-close").click(function (e) {
