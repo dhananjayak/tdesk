@@ -19,37 +19,63 @@
 
 </head>
 <body>
-    <a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle"><i class="fa fa-bars"></i></a>
-    <nav id="sidebar-wrapper" class="sidebarwrapper">
-        <ul class="sidebar-nav">
-            <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle"><i class="fa fa-times"></i></a>
-            <li class="sidebar-brand">
-                <a href="#top" onclick=$("#menu-close").click();>Start Bootstrap</a>
-            </li>
-            <li>
-                <a href="#top" onclick=$("#menu-close").click();>Home</a>
-            </li>
-            <li>
-                <a href="#about" onclick=$("#menu-close").click();>About</a>
-            </li>
-            <li>
-                <a href="#services" onclick=$("#menu-close").click();>Services</a>
-            </li>
-            <li>
-                <a href="#portfolio" onclick=$("#menu-close").click();>Portfolio</a>
-            </li>
-            <li>
-                <a href="#contact" onclick=$("#menu-close").click();>Contact</a>
-            </li>
-        </ul>
-    </nav>
     <!-- Header -->
     <header id="top" class="header">
         <div class="text-vertical-center">
             <h1>Infosys</h1>
             <h3>Collaborated Transport Desk</h3>
-            <br>
-            <a href="#about" class="btn btn-dark btn-lg">Explore!</a>
+            <section id="services" class="services bg-primary">
+                <div class="container">
+                    <div class="row text-center">
+                        <div class="col-lg-10 col-lg-offset-1">
+                            <h2>Control Room</h2>
+                            <hr class="small">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="service-item">
+                                        <span class="fa-stack fa-4x" id="spanShareRide">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-automobile fa-stack-1x text-primary"></i>
+                                        </span>
+                                        <h4>
+                                            <strong>Share a ride</strong>
+                                        </h4>
+                                        <p>Share a ride</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="service-item">
+                                        <span class="fa-stack fa-4x" id="spanLocateVeh">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-map-marker fa-stack-1x text-primary"></i>
+                                        </span>
+                                        <h4>
+                                            <strong>Locate Vehicle</strong>
+                                        </h4>
+                                        <p>Locate Vehicle</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="service-item">
+                                        <span class="fa-stack fa-4x">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-bus fa-stack-1x text-primary"></i>
+                                        </span>
+                                        <h4>
+                                            <strong>Speed Report</strong>
+                                        </h4>
+                                        <p>Speed Report</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.col-lg-10 -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container -->
+            </section>
         </div>
     </header>
     <!-- About -->
@@ -57,65 +83,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Stylish Portfolio is the perfect theme for your next project!</h2>
-                    <p class="lead">This theme features some wonderful photography courtesy of <a target="_blank" href="http://join.deathtothestockphoto.com/">Death to the Stock Photo</a>.</p>
+                    <h2>A virtual control room tracking all the incoming and outgoing vehicle status</h2>
+                    <p class="lead">To report any issues, please contact <a target="_blank" href="#">transpoertdesk_hyd@infosys.com</a>.</p>
                 </div>
-            </div>
-            <!-- /.row -->
-        </div>
-        <!-- /.container -->
-    </section>
-    <!-- Services -->
-    <section id="services" class="services bg-primary">
-        <div class="container">
-            <div class="row text-center">
-                <div class="col-lg-10 col-lg-offset-1">
-                    <h2>Control Room</h2>
-                    <hr class="small">
-                    <div class="row">
-                        <div class="col-md-4 col-sm-6">
-                            <div class="service-item">
-                                <span class="fa-stack fa-4x">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-automobile fa-stack-1x text-primary"></i>
-                                </span>
-                                <h4>
-                                    <strong>Share a ride</strong>
-                                </h4>
-                                <p>Share a ride</p>
-                                <a href="#" class="btn btn-light">Ride Along!</a>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="service-item">
-                                <span class="fa-stack fa-4x">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-map-marker fa-stack-1x text-primary"></i>
-                                </span>
-                                <h4>
-                                    <strong>Locate Vehicle</strong>
-                                </h4>
-                                <p>Locate Vehicle</p>
-                                <a href="#" class="btn btn-light">Learn More</a>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="service-item">
-                                <span class="fa-stack fa-4x">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-bus fa-stack-1x text-primary"></i>
-                                </span>
-                                <h4>
-                                    <strong>Speed Report</strong>
-                                </h4>
-                                <p>Speed Report</p>
-                                <a href="#" class="btn btn-light">Learn More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.row (nested) -->
-                </div>
-                <!-- /.col-lg-10 -->
             </div>
             <!-- /.row -->
         </div>
@@ -170,8 +140,6 @@
             </div>
         </div>
     </footer>
-
-    <div id="divLocateVehicles" class="mapHolder"></div>
     <!-- jQuery -->
     <script src="lib/jquery-2.2.1.js"></script>
     <!-- Bootstrap Core JavaScript -->

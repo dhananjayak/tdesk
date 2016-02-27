@@ -84,8 +84,9 @@ function initMap() {
 
 }
 
-function init(lat, lng) {
-    LoadMap(lat, lng, document.getElementById('mapPlaceholder'));
+function initLocateVeh() {
+
+    LocateCurrentVehicles(userConfig.track.lat, userConfig.track.lng);
 
     // Closes the sidebar menu
     $("#menu-close").click(function (e) {
@@ -100,21 +101,24 @@ function init(lat, lng) {
     });
 
     //// Scrolls to the selected menu item on the page
-    //$('a[href*=#]:not([href=#])').click(function () {
-    //    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+    $('a[href*=#]:not([href=#])').click(function () {
+        if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
 
-    //        var target = $(this.hash);
-    //        target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-    //        if (target.length) {
-    //            $('html,body').animate({
-    //                scrollTop: target.offset().top
-    //            }, 1000);
-    //            return false;
-    //        }
-    //    }
-    //});
+            var target = $(this.hash);
+            target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+            if (target.length) {
+                $('html,body').animate({
+                    scrollTop: target.offset().top
+                }, 1000);
+                return false;
+            }
+        }
+    });
+}
 
+function init(lat, lng) {
 
+    LoadMap(lat, lng, document.getElementById('mapPlaceholder'));
 
     function markTraffic(map) {
         var trafficLayer = new google.maps.TrafficLayer();
@@ -135,15 +139,11 @@ function init(lat, lng) {
 }
 
 $(document).ready(function () {
-
     tdesk.config.user(tdesk.readQuery("id"), function (userConfig) {
-        //console.log(value);
         window.userConfig = userConfig;
         init(userConfig.track.lat, userConfig.track.lng);
-        LocateCurrentVehicles(userConfig.track.lat, userConfig.track.lng);
+
     });
-
-
 });
 
 function LocateCurrentVehicles(lat, lng, vehiclelocations) {
@@ -319,3 +319,8 @@ function geteta(source, dest) {
 function GetDepartureTime() {
     return new Date().getTime() / 1000;
 }
+
+$(document).on('click', '#spanLocateVeh', function () {
+    var queryString = window.location.href.split('?')[1];
+    window.location.href = "locatevehicle.html?" + queryString;
+});
