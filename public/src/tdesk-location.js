@@ -34,22 +34,24 @@ function Init()
     });
 
     //SetBaseLocation();
-    //  GetWatchFunction();
+      GetWatchFunction();
 }
 
 function GetWatchFunction() {
     var options = {
         enableHighAccuracy: false,
-        timeout: 50000,
+        timeout: 3000,
         maximumAge: 0
     };
 
     var watchID = navigator.geolocation.watchPosition(function (position) {
         PushLiveData(position.coords.latitude, position.coords.longitude, watchID);
-    }, options);
+    }, function(error){}, options);
 }
 function PushLiveData(latitude, longitude, watchId) {
-    alert(latitude + "," + longitude + "," + watchId);
+  //  alert(latitude + "," + longitude + "," + watchId);
+  AssignValuesToFields(latitude,longitude);
+  PushDataToFireBase();
 
 }
 
@@ -68,7 +70,6 @@ function markCurrentLocation(map, latitude, longitude) {
 function AssignValuesToFields(latitude, longitude) {
     $("#driverLatitude").val(latitude);
     $("#driverLongitude").val(longitude);
-
 }
 
 function PushDataToFireBase() {
@@ -76,9 +77,11 @@ function PushDataToFireBase() {
     var latitude = parseFloat($("#driverLatitude").val());
     var longitude = parseFloat($("#driverLongitude").val());
     var latlang = { lat: latitude, lng: longitude };
-    var vechicle = new tdesk.Vehicle(userConfig.track.loc, userConfig.userid);
+    var vechicle = new tdesk.Vehicle(userConfig.track.loc, userConfig.userid, userConfig.vehicle.number);
     vechicle.position(latlang);
-    alert(latitude + "," + longitude);
+    console.log(latlang);
+    //alert(latitude+","+longitude);
+   // alert(latitude + "," + longitude);
 
 }
 
@@ -103,10 +106,13 @@ function SetBaseLocation() {
 function DrawRouteForDriver(map, currentpos, array) {
 
     var request = {
-        origin: new google.maps.LatLng(17.3700,78.4800),
+        //origin: new google.maps.LatLng(17.3700,78.4800),
+        origin: currentpos,
         destination: new google.maps.LatLng(userConfig.track.lat, userConfig.track.lng),
         travelMode: google.maps.DirectionsTravelMode.DRIVING,
-        waypoints: [{ location: "Rai Durg, Hyderabad", stopover: true },{location:"TOLI CHOWKI",stopover:true}]
+        waypoints: userConfig.inboundRoute
+      
+       // waypoints: [{ location: "Rai Durg, Hyderabad", stopover: true },{location:"TOLI CHOWKI",stopover:true}]
     };
 
 

@@ -8,16 +8,16 @@ $(document).ready(function () {
 
         tdesk.vehicles.all(userConfig.track.loc, function(response){
         	Object.keys(response).forEach(function(user){
-        		var usersLatLng = response[user];
+        		var userInfo = response[user];
         		
         		console.log('points changed..');
 
         		if (vehiclePositions[user]){
-        			vehiclePositions[user].setPosition({lat:usersLatLng.lat, lng:usersLatLng.lng});
+        			vehiclePositions[user].setPosition({lat:userInfo.lat, lng:userInfo.lng});
         		}
         		else{
         			vehiclePositions[user] =
-        				PointVehicle(usersLatLng.lat, usersLatLng.lng, map);	
+        				PointVehicle(userInfo, map);	
         		}
         		
         	});
