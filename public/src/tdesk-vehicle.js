@@ -10,9 +10,9 @@
 	}
 
 	Vehicle.prototype.position = function(latLng) {
-		var sourceRef = this.firebaseRef.push();
+		//var sourceRef = this.firebaseRef.push();
 
-		sourceRef.set(latLng);
+		this.firebaseRef.set(latLng);
 	}
 
 	if (typeof global.tdesk === 'undefined')
