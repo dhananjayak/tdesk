@@ -34,13 +34,13 @@ function Init()
     });
 
     //SetBaseLocation();
-    //  GetWatchFunction();
+      GetWatchFunction();
 }
 
 function GetWatchFunction() {
     var options = {
         enableHighAccuracy: false,
-        timeout: 50000,
+        timeout: 3000,
         maximumAge: 0
     };
 
@@ -49,7 +49,9 @@ function GetWatchFunction() {
     }, options);
 }
 function PushLiveData(latitude, longitude, watchId) {
-    alert(latitude + "," + longitude + "," + watchId);
+  //  alert(latitude + "," + longitude + "," + watchId);
+  AssignValuesToFields(latitude,longitude);
+  PushDataToFireBase();
 
 }
 
@@ -78,7 +80,7 @@ function PushDataToFireBase() {
     var latlang = { lat: latitude, lng: longitude };
     var vechicle = new tdesk.Vehicle(userConfig.track.loc, userConfig.userid);
     vechicle.position(latlang);
-    alert(latitude + "," + longitude);
+   // alert(latitude + "," + longitude);
 
 }
 
@@ -104,8 +106,11 @@ function DrawRouteForDriver(map, currentpos, array) {
 
     var request = {
         origin: new google.maps.LatLng(17.3700,78.4800),
+       // origin: currentpos,
         destination: new google.maps.LatLng(userConfig.track.lat, userConfig.track.lng),
         travelMode: google.maps.DirectionsTravelMode.DRIVING,
+       // waypoints: userConfig.inboundRoute
+      
         waypoints: [{ location: "Rai Durg, Hyderabad", stopover: true },{location:"TOLI CHOWKI",stopover:true}]
     };
 
