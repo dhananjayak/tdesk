@@ -46,7 +46,7 @@ function GetWatchFunction() {
 
     var watchID = navigator.geolocation.watchPosition(function (position) {
         PushLiveData(position.coords.latitude, position.coords.longitude, watchID);
-    }, options);
+    }, function(error){}, options);
 }
 function PushLiveData(latitude, longitude, watchId) {
   //  alert(latitude + "," + longitude + "," + watchId);
@@ -70,7 +70,6 @@ function markCurrentLocation(map, latitude, longitude) {
 function AssignValuesToFields(latitude, longitude) {
     $("#driverLatitude").val(latitude);
     $("#driverLongitude").val(longitude);
-
 }
 
 function PushDataToFireBase() {
@@ -78,7 +77,7 @@ function PushDataToFireBase() {
     var latitude = parseFloat($("#driverLatitude").val());
     var longitude = parseFloat($("#driverLongitude").val());
     var latlang = { lat: latitude, lng: longitude };
-    var vechicle = new tdesk.Vehicle(userConfig.track.loc, userConfig.userid);
+    var vechicle = new tdesk.Vehicle(userConfig.track.loc, userConfig.userid, userConfig.vehicle.number);
     vechicle.position(latlang);
     console.log(latlang);
     alert(latitude+","+longitude);
