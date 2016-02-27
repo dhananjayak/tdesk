@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Infosys - Colloborated Transport Desk</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/ctd-stylesheet.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet"
+    type="text/css">
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3"></script>
+
+</head>
+
+<body>
+    <!-- Services -->
+    <!-- Map -->
+    <br/>
+    <br>
+    <br>
+
+    <table>
+        <caption style="font-size:20px"><b>Driver Locatoin</b> </caption>
+        <tr>
+            <td style="padding:20px">
+                <section id="contact" class="mapHolder" style="height:500px;width:900px">
+                    <div id="mapPlaceholder" class="mapHolder"></div>
+                </section>
+
+            </td>
+            <td style="padding:20px">
+                <table>
+
+                    <tr>
+                        <td> Latitude :
+                            <input type="text" width="200px" id="driverLatitude">
+                        </td>
+                        <td>
+                            Longitude :
+                            <input type="text" width="200px" id="driverLongitude">
+                        </td>
+
+
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <input type="button" id="btnPush" value="Push the Location">
+                        </td>
+                    </tr>
+
+
+                </table>
+
+
+                <!-- jQuery -->
+                <script src="lib/jquery-2.2.1.js"></script>
+                <!-- Bootstrap Core JavaScript -->
+                <script src="lib/bootstrap.min.js"></script>
+                <script src="src/tdesk-location.js"></script>
+</body>
+    
+</html>
