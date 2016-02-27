@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Login</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+		    var oauth = {
+		    	url:"https://accounts.google.com/o/oauth2/v2/auth?",
+		    	params : {
+		    		scope:"email profile",
+		    		redirect_uri:"http://localhost:5000/oauth.html",
+		    		client_id:"53747343404-t44ol25u412ckqfh853e1tsbo4ultm1r.apps.googleusercontent.com",
+		    		response_type:"token"
+		    	}
+		    };
+
+		    function queryString(params){
+		    	return Object.keys(params).map(function(key){
+		    		return [key, encodeURIComponent(params[key])].join('=')
+		    	}).reduce(function(p, c){
+		    		return p.concat(c);
+		    	}, []).join('&')
+		    }
+
+		    function authorize(url, params){
+		    	window.location.href = url + queryString(oauth.params);
+		    }
+
+		    authorize(oauth.url, oauth.params);
+		</script>
+	</body>
+</html>

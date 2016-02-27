@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+	<title>oauth</title>
+	
+	<script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+	<script src="lib/jquery-2.2.1.js"></script>
+	<script src="src/tdesk-config.js"></script>
+
+	
+
+	<script type="text/javascript">
+		function extractToken(params){
+			var AccessTokenSearchString = 'access_token=';
+
+			var begin = params.indexOf(AccessTokenSearchString) + AccessTokenSearchString.length;
+			var end = params.indexOf('&', begin);
+
+			return params.substring(begin, end);
+		}
+
+		function userInfoUrl(token){
+			return 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token='+token;
+		}
+
+		function userConfig(email){
+			tdesk.config.user(email, function(result){
+				console.log(result.id);
+			});
+		}
+
+		window.onload = function() { 
+			var token = extractToken(window.location.hash);
+
+			$.getJSON(userInfoUrl(token), function(user){
+				userConfig(user.email);
+			});
+		}
+	</script>
+</head>
+<body>
+
+</body>
+</html>
