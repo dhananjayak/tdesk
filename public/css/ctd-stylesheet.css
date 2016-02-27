@@ -263,3 +263,8 @@ footer {
     height: 100%;
     width: 100%;
 }
+
+
+#spanSOS .bg-primary {
+    color: red;
+}

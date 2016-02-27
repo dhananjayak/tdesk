@@ -3,8 +3,10 @@
 // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
 var map;
+var markerBounds = Array();
 var directionsDisplay = new google.maps.DirectionsRenderer();
 var DirectionObj = new google.maps.DirectionsService();
+var mapBounds = new google.maps.LatLngBounds();
 
 function initMap() {
 
@@ -125,9 +127,9 @@ function markTraffic(map) {
 function getLatLong() {
 
     if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                return position;
-            });
+        navigator.geolocation.getCurrentPosition(function (position) {
+            return position;
+        });
     }
     else {
 
@@ -151,8 +153,14 @@ function LocateCurrentVehicles(lat, lng, vehiclelocations, mapElement) {
     var locationMap = CreateMapInstance(lat, lng, mapElement);
 
     for (var cnt = 0; cnt < vehiclelocations.length; cnt++) {
-        PointVehicle(vehiclelocations[cnt][0], vehiclelocations[cnt][1], locationMap);
+        markerBounds.push(PointVehicle(vehiclelocations[cnt][0], vehiclelocations[cnt][1], locationMap));
     }
+
+    for (var i in markerBounds) {
+        mapBounds.extend(markerBounds[i].getPosition());
+    }
+
+    locationMap.fitBounds(mapBounds)
 
 }
 
@@ -190,9 +198,9 @@ function PointVehicle(lat, lng, map) {
 
 function createMap(lat, lng, placeHolderId) {
     var mapElement = document.getElementById(placeHolderId);
-    
+
     var locationMap = CreateMapInstance(lat, lng, mapElement);
-    
+
     markCurrentLocation(locationMap, lat, lng);
 
     return locationMap;
@@ -205,7 +213,7 @@ function CreateMapInstance(lat, lng, mapElement) {
 
     var mapOptions = {
         center: new google.maps.LatLng(lat, lng),
-        zoom: 11,
+        zoom: 10,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
@@ -245,9 +253,9 @@ function DrawRoute(map, currentpos, array) {
 
     var request = {
         origin: currentpos,
-        destination: new google.maps.LatLng(17.4359, 78.3417),
+        destination: new google.maps.LatLng(userConfig.track.lat, userConfig.track.lng),
         travelMode: google.maps.DirectionsTravelMode.DRIVING,
-        waypoints: [{ location: "Hitech City, Hyderabad", stopover: true }]
+        waypoints: userConfig.inboundRoute
     };
 
 
