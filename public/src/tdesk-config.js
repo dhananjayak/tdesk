@@ -16,20 +16,20 @@
 				console.log('synchronized...');
 			});
 		},
-		user:function(email, callback){
+		user:function(emailOrId, callback){
 			firebaseRef.once('value', function(dataSnapshot) {
   			// handle read data.
   				var users = dataSnapshot.val();
 
   				var filtered =
   					users.filter(function(user){
-  						console.log(user)
-  						return (user.email === email);
+  						return ((user.id.toString() === emailOrId) || (user.email === emailOrId));
   					});
 
   				callback(filtered[0]);
   			});
 		}
+
 	};
 
 	if (typeof global.tdesk === 'undefined')

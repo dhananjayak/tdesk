@@ -84,9 +84,8 @@ function initMap() {
 
 }
 
-$(document).ready(function () {
-
-    LoadMap(0, 0, document.getElementById('mapPlaceholder'));
+function init(lat, lng){
+    LoadMap(lat, lng, document.getElementById('mapPlaceholder'));
 
     LocateCurrentVehicles();
 
@@ -137,6 +136,17 @@ $(document).ready(function () {
 
         }
     }
+}
+
+$(document).ready(function () {
+
+    tdesk.config.user(tdesk.readQuery("id"), function(userConfig){
+        //console.log(value);
+        window.userConfig = userConfig;
+        init(userConfig.track.lat, userConfig.track.lng);
+    });
+
+    
 });
 
 function LocateCurrentVehicles(lat, lng, vehiclelocations) {
@@ -183,8 +193,8 @@ function LoadMap(lat, lng, mapElement) {
 }
 
 function CreateMapInstance(lat, lng, mapElement) {
-    lat = 17.4359;
-    lng = 78.3417;
+    //lat = 17.4359;
+    //lng = 78.3417;
     google.maps.visualRefresh = true;
 
     var mapOptions = {
@@ -260,7 +270,7 @@ function markCurrentLocation(map, latitude, longitude) {
     var marker = new google.maps.Marker({
         position: new google.maps.LatLng(latitude, longitude),
         map: map,
-        title: 'Infosys Ltd'
+        title: userConfig.track.title
     });
 
     marker.setMap(map);

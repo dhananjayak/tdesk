@@ -25,7 +25,7 @@
 
 		function userConfig(email){
 			tdesk.config.user(email, function(result){
-				console.log(result.id);
+				window.location.href = "index.html?id=" + result.id;
 			});
 		}
 
