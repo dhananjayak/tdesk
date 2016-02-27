@@ -116,35 +116,27 @@ function initLocateVeh() {
     });
 }
 
-function init(lat, lng) {
+function markTraffic(map) {
+    var trafficLayer = new google.maps.TrafficLayer();
 
-    LoadMap(lat, lng, document.getElementById('mapPlaceholder'));
+    trafficLayer.setMap(map);
+}
 
-    function markTraffic(map) {
-        var trafficLayer = new google.maps.TrafficLayer();
-        trafficLayer.setMap(map);
-    }
+function getLatLong() {
 
-    function getLatLong() {
-
-        if (navigator.geolocation) {
+    if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
                 return position;
             });
-        }
-        else {
+    }
+    else {
 
-        }
     }
 }
 
-$(document).ready(function () {
-    tdesk.config.user(tdesk.readQuery("id"), function (userConfig) {
-        window.userConfig = userConfig;
-        init(userConfig.track.lat, userConfig.track.lng);
-
-    });
-});
+function init(lat, lng) {
+    return createMap(lat, lng, 'mapPlaceholder');
+}
 
 function LocateCurrentVehicles(lat, lng, vehiclelocations, mapElement) {
 
@@ -193,13 +185,17 @@ function PointVehicle(lat, lng, map) {
         infowindow.close();
     });
 
+    return marker;
 }
 
-function LoadMap(lat, lng, mapElement) {
+function createMap(lat, lng, placeHolderId) {
     var mapElement = document.getElementById('mapPlaceholder');
+    
     var locationMap = CreateMapInstance(lat, lng, mapElement);
+    
     markCurrentLocation(locationMap, lat, lng);
 
+    return locationMap;
 }
 
 function CreateMapInstance(lat, lng, mapElement) {
@@ -311,7 +307,7 @@ function geteta(source, dest) {
       }, callback);
 
     function callback(response, status) {
-        eta = response.rows[0].elements[0].duration.text;
+        //eta = response.rows[0].elements[0].duration.text;
     }
 }
 
@@ -319,7 +315,3 @@ function GetDepartureTime() {
     return new Date().getTime() / 1000;
 }
 
-$(document).on('click', '#spanLocateVeh', function () {
-    var queryString = window.location.href.split('?')[1];
-    window.location.href = "locatevehicle.html?" + queryString;
-});
