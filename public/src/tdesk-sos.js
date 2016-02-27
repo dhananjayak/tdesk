@@ -37,6 +37,14 @@
 			}
 
 			currentLocation(success)
+		},
+		sms: function(){
+			$.get('send',function(){})
+    		 .done(function(){
+                	alert("Notification Sent");
+     		}).fail(function(){
+            		alert('something went wrong');
+        	});
 		}
 	};
 

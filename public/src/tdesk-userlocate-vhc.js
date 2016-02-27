@@ -30,22 +30,13 @@ $(document).on('click', '#spanUserLocVeh', function () {
     var queryString = window.location.href.split('?')[1];
     window.location.href = "userlocatecabs.html?" + queryString;
 });
-$(document).on('click', '#spanSOS', function () {
-PushSosData();
-    
-    var queryString = window.location.href.split('?')[1];
-    //window.location.href = "send";
+
+$('#spanSOS').on('click', function(){
+    function success(){
+
+    }
+
+    tdesk.sos.alert(userConfig.userid, success);
+    tdesk.sos.sms();
 });
 
-function PushSosData()
-{
-    $.get('send',function(){})
-    .done(function()
-    {
-                alert("Notification Sent");
-     })
-        .fail(function(){
-            alert('something went wrong');
-        })
-      
-}
