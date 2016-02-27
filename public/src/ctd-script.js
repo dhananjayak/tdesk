@@ -283,8 +283,9 @@ function markCurrentLocation(map, latitude, longitude) {
         map: map,
         title: userConfig.track.title
     });
+    directionsDisplay.setMap(map);
 
-    marker.setMap(map);
+  //  marker.setMap(map);
 
 }
 
