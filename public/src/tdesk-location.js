@@ -55,11 +55,7 @@ function PushLiveData(latitude, longitude, watchId) {
 
 function markCurrentLocation(map, latitude, longitude) {
 
-//     var marker = new google.maps.Marker({
-//         position: new google.maps.LatLng(latitude, longitude),
-//         map: map,
-// 
-//     });
+//    cd
 
    // marker.setMap(map);
     var currentPos = new google.maps.LatLng(latitude, longitude);
