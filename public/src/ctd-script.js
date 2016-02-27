@@ -86,7 +86,7 @@ function initMap() {
 
 function initLocateVeh() {
 
-    LocateCurrentVehicles(userConfig.track.lat, userConfig.track.lng);
+    LocateCurrentVehicles(userConfig.track.lat, userConfig.track.lng, document.getElementById('divLocateVehicles'));
 
     // Closes the sidebar menu
     $("#menu-close").click(function (e) {
@@ -146,7 +146,7 @@ $(document).ready(function () {
     });
 });
 
-function LocateCurrentVehicles(lat, lng, vehiclelocations) {
+function LocateCurrentVehicles(lat, lng, vehiclelocations, mapElement) {
 
     vehiclelocations = new Array();
 
@@ -156,7 +156,6 @@ function LocateCurrentVehicles(lat, lng, vehiclelocations) {
     vehiclelocations.push(new Array(17.480515, 78.314323));
     vehiclelocations.push(new Array(17.363244, 78.518257));
 
-    var mapElement = document.getElementById('divLocateVehicles');
     var locationMap = CreateMapInstance(lat, lng, mapElement);
 
     for (var cnt = 0; cnt < vehiclelocations.length; cnt++) {
