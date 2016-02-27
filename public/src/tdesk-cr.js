@@ -2,13 +2,24 @@ $(document).ready(function () {
     tdesk.config.user(tdesk.readQuery("id"), function (userConfig) {
         window.userConfig = userConfig;
 
+        var vehiclePositions = {};
+
         var map = init(userConfig.track.lat, userConfig.track.lng);
 
         tdesk.vehicles.all(userConfig.track.loc, function(response){
         	Object.keys(response).forEach(function(user){
         		var usersLatLng = response[user];
+        		
+        		console.log('points changed..');
 
-        		PointVehicle(usersLatLng.lat, usersLatLng.lng, map);
+        		if (vehiclePositions[user]){
+        			vehiclePositions[user].setPosition({lat:usersLatLng.lat, lng:usersLatLng.lng});
+        		}
+        		else{
+        			vehiclePositions[user] =
+        				PointVehicle(usersLatLng.lat, usersLatLng.lng, map);	
+        		}
+        		
         	});
         });
     });

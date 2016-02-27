@@ -1,13 +1,19 @@
-var bounds = new google.maps.LatLngBounds();
+var directionsDisplay = new google.maps.DirectionsRenderer();
+var DirectionObj = new google.maps.DirectionsService();
 
 $(document).ready(function () {
     tdesk.config.user(tdesk.readQuery("id"), function (userConfig) {
         //console.log(value);
         window.userConfig = userConfig;
+        Init();
         // init(userConfig.track.lat, userConfig.track.lng);
     });
 
-    $("#btnPush").click(function (e) {
+  
+});
+function Init()
+{
+      $("#btnPush").click(function (e) {
         e.preventDefault();
         PushDataToFireBase();
     }
@@ -29,7 +35,8 @@ $(document).ready(function () {
 
     //SetBaseLocation();
     //  GetWatchFunction();
-});
+}
+
 function GetWatchFunction() {
     var options = {
         enableHighAccuracy: false,
@@ -37,9 +44,9 @@ function GetWatchFunction() {
         maximumAge: 0
     };
 
-var watchID = navigator.geolocation.watchPosition(function (position) {
-    PushLiveData(position.coords.latitude, position.coords.longitude, watchID);
-   },options);
+    var watchID = navigator.geolocation.watchPosition(function (position) {
+        PushLiveData(position.coords.latitude, position.coords.longitude, watchID);
+    }, options);
 }
 function PushLiveData(latitude, longitude, watchId) {
     alert(latitude + "," + longitude + "," + watchId);
@@ -48,13 +55,13 @@ function PushLiveData(latitude, longitude, watchId) {
 
 function markCurrentLocation(map, latitude, longitude) {
 
-    var marker = new google.maps.Marker({
-        position: new google.maps.LatLng(latitude, longitude),
-        map: map,
+//    cd
 
-    });
+   // marker.setMap(map);
+    var currentPos = new google.maps.LatLng(latitude, longitude);
+        directionsDisplay.setMap(map);
 
-    marker.setMap(map);
+    DrawRouteForDriver(map, currentPos, "");
 
 }
 
@@ -91,4 +98,22 @@ function SetBaseLocation() {
         title: 'Hello World!'
     });
     marker.setMap(map);
+}
+
+function DrawRouteForDriver(map, currentpos, array) {
+
+    var request = {
+        origin: new google.maps.LatLng(17.3700,78.4800),
+        destination: new google.maps.LatLng(userConfig.track.lat, userConfig.track.lng),
+        travelMode: google.maps.DirectionsTravelMode.DRIVING,
+        waypoints: [{ location: "Rai Durg, Hyderabad", stopover: true },{location:"TOLI CHOWKI",stopover:true}]
+    };
+
+
+    DirectionObj.route(request, function (response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+         
+        }
+    });
 }

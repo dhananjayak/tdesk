@@ -186,6 +186,7 @@ function PointVehicle(lat, lng, map) {
         infowindow.close();
     });
 
+    return marker;
 }
 
 function createMap(lat, lng, placeHolderId) {
@@ -314,5 +315,4 @@ function geteta(source, dest) {
 function GetDepartureTime() {
     return new Date().getTime() / 1000;
 }
-
 
