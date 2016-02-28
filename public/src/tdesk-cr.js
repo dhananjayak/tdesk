@@ -5,7 +5,7 @@ $(document).ready(function () {
         var vehiclePositions = {};
 
         var map = init(userConfig.track.lat, userConfig.track.lng, 'mapPlaceholder');
-
+        tdesk.sos.monitor();
         tdesk.vehicles.all(userConfig.track.loc, function(response){
         	Object.keys(response).forEach(function(user){
         		var userInfo = response[user];

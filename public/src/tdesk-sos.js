@@ -45,7 +45,14 @@
      		}).fail(function(){
             		alert('something went wrong');
         	});
-		}
+		},
+        monitor:function()
+        {
+            var firebaseRef=new Firebase(FIREBASE_URL);
+            firebaseRef.on('child_added',function(snapshot){
+                alert(JSON.stringify(snapshot.val()));
+            });
+        }
 	};
 
 
