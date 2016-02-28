@@ -1,4 +1,3 @@
-
 var keys = new Array();
 var userArray = new Array();
 
@@ -32,7 +31,7 @@ $(document).ready(function () {
                 total += this;
             });
             var avgSpped = total / output.length
-            PaintHtml(keys[cnt], keys[cnt], maxSpeed, avgSpped, tableId);
+            PaintHtml(keys[cnt], new Date().toDateString(), maxSpeed, avgSpped, tableId);
         }
     });
 
@@ -70,14 +69,10 @@ function CalculateTime(from, to) {
     var fromDate = new Date(from);
     var toDate = new Date(to);
     var timeDiff = Math.abs(fromDate.getTime() - toDate.getTime());
-    return Math.ceil(timeDiff / (1000 * 60));
+    return Math.ceil(timeDiff / (1000 * 60 * 60));
 }
 
 function PaintHtml(name, date, maxSpeed, avgSpped, element) {
     var html = '<tr><td>' + name + '</td><td>' + date + '</td><td>' + maxSpeed + '</td><td>' + avgSpped + '</td></tr>'
     $(element).find('tbody').append(html);
 }
-
-
-
-

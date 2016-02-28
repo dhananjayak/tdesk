@@ -29,3 +29,8 @@ $(document).on('click', '#spanLocateVeh', function () {
     var queryString = window.location.href.split('?')[1];
     window.location.href = "locate-vehicle.html?" + queryString;
 });
+
+$(document).on('click', '#spanSpeedReport', function () {
+    var queryString = window.location.href.split('?')[1];
+    window.location.href = "speeding-table.html?" + queryString;
+});
