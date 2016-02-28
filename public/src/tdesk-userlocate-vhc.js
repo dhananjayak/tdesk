@@ -4,7 +4,7 @@ $(document).ready(function () {
 
         window.userConfig = userConfig;
 
-        var map = init(userConfig.track.lat, userConfig.track.lng, 'divLocateVehicles');
+        var map = init(userConfig.track.lat, userConfig.track.lng, 'divNearestVehicles');
 
         tdesk.vehicles.all(userConfig.track.loc, function (response) {
             Object.keys(response).forEach(function (user) {
@@ -17,7 +17,7 @@ $(document).ready(function () {
                 }
                 else {
                     vehiclePositions[user] =
-                        PointVehicle(usersLatLng.lat, usersLatLng.lng, map);
+                        PointVehicle(usersLatLng, map);
                 }
             });
         });
@@ -30,3 +30,13 @@ $(document).on('click', '#spanUserLocVeh', function () {
     var queryString = window.location.href.split('?')[1];
     window.location.href = "userlocatecabs.html?" + queryString;
 });
+
+$('#spanSOS').on('click', function(){
+    function success(){
+
+    }
+
+    tdesk.sos.alert(userConfig.userid, success);
+    tdesk.sos.sms();
+});
+
