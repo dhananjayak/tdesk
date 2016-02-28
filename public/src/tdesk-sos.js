@@ -1,4 +1,6 @@
 (function(global){
+	var Months = ['JAN', 'FEB',  'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+
 	var FIREBASE_URL = "https://tdesk-sos.firebaseio.com/";
 
 	function currentLocation(successCallback){
@@ -26,14 +28,24 @@
 		navigator.geolocation.getCurrentPosition(success, error, options);
 	}
 
+	function currentKey(){
+		var now = new Date();
+
+		var month = Months[now.getMonth()];
+		var year = now.getFullYear();
+		var day = now.getDate();
+
+		return month+day+year;
+	}
+
 	var sos = {
 		alert: function(userName){
 			function success(latLng){
-				var firebaseRef = new Firebase(FIREBASE_URL + userName);
+				var firebaseRef = new Firebase(FIREBASE_URL + currentKey() + '/' + userName );
 
-				var sosRef = firebaseRef.push();
+				//var sosRef = firebaseRef.push();
 
-				sosRef.set({latLng:latLng, sosOn:(new Date()).toString()});
+				firebaseRef.set({latLng:latLng, sosOn:(new Date()).toString()});
 			}
 
 			currentLocation(success)
@@ -48,9 +60,21 @@
 		},
         monitor:function()
         {
-            var firebaseRef=new Firebase(FIREBASE_URL);
-            firebaseRef.on('child_added',function(snapshot){
-                alert(JSON.stringify(snapshot.val()));
+            var firebaseRef=new Firebase(FIREBASE_URL + currentKey());
+            firebaseRef.on('child_added', function(snapshot, prevChildKey){
+            	var user = snapshot.key();
+            	var val = snapshot.val();
+
+            	var geocoder = new google.maps.Geocoder();
+
+            	geocoder.geocode({location: {lat:val.latLng.lat, lng:val.latLng.lng}}, 
+            					 function(res){
+            					 	var message = 'There is an SOS from user ' + user + ' at location ' + res[0].formatted_address;
+            					 	alert(message);
+            					 });
+
+            	
+                
             });
         }
 	};
